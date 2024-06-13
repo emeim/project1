@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZC_MATERIALPK_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="I_MaterialStdVHType" sap:label="Material" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:text="Material_Text" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="Material_Text" Type="Edm.String" MaxLength="40" sap:label="Material Description" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ZC_MaterialPKType" sap:label="Material Stock" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:text="MaterialName" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="MaterialType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="MaterialTypeName" sap:label="Material type"/>
+                <Property Name="MaterialGroup" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:text="MaterialGroupName" sap:label="Material Group"/>
+                <Property Name="MaterialGrossWeight" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="MaterialWeightUnit" sap:label="Gross weight"/>
+                <Property Name="MaterialNetWeight" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="MaterialWeightUnit" sap:label="Net weight"/>
+                <Property Name="MaterialWeightUnit" Type="Edm.String" MaxLength="3" sap:label="Unit of Weight" sap:semantics="unit-of-measure"/>
+                <Property Name="LastChangedby" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:quickinfo="Name of Person Who Changed Object"/>
+                <Property Name="LastChangedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Last Change" sap:quickinfo="Date of Last Change"/>
+                <Property Name="MaterialTypeName" Type="Edm.String" MaxLength="25" sap:label="Material Type Desc." sap:quickinfo="Description of Material Type"/>
+                <Property Name="MaterialGroupName" Type="Edm.String" MaxLength="20" sap:label="Product Group Desc." sap:quickinfo="Product Group Description"/>
+                <Property Name="MaterialName" Type="Edm.String" MaxLength="40" sap:label="Material Description"/>
+                <NavigationProperty Name="to_MaterialPlant" Relationship="ZC_MATERIALPK_CDS.assoc_DE2109AC35200725ABC49886C2698D6C" FromRole="FromRole_assoc_DE2109AC35200725ABC49886C2698D6C" ToRole="ToRole_assoc_DE2109AC35200725ABC49886C2698D6C"/>
+                <NavigationProperty Name="to_MaterialStock" Relationship="ZC_MATERIALPK_CDS.assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A" FromRole="FromRole_assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A" ToRole="ToRole_assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A"/>
+            </EntityType>
+            <EntityType Name="ZI_MaterialPlantPKType" sap:label="Material Plant" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Material"/>
+                    <PropertyRef Name="Plant"/>
+                </Key>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number" sap:value-list="standard"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="PlantName" sap:label="Plant"/>
+                <Property Name="PlantName" Type="Edm.String" MaxLength="30" sap:label="Plant Name"/>
+                <Property Name="MRPController" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="MRPControllerName" sap:label="MRP Controller"/>
+                <Property Name="MRPControllerName" Type="Edm.String" MaxLength="18" sap:label="MRP Controller Name"/>
+                <Property Name="MaterialSafetyStockQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="MaterialBaseUnit" sap:label="Safety Stock"/>
+                <Property Name="MaterialBaseUnit" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="ZI_MaterialStockType" sap:semantics="aggregate" sap:label="Material Stock" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Stock Material" sap:quickinfo="Material in Respect of Which Stock is Managed"/>
+                <Property Name="Plant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:text="PlantName" sap:label="Plant"/>
+                <Property Name="StorageLocation" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:text="StorageLocationName" sap:label="Storage Location"/>
+                <Property Name="MaterialBaseUnit" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:label="Base Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="UnrestrictedStock" Type="Edm.Decimal" Precision="31" Scale="14" sap:aggregation-role="measure" sap:unit="MaterialBaseUnit" sap:filterable="false"/>
+                <Property Name="PlantName" Type="Edm.String" MaxLength="30" sap:label="Plant Name"/>
+                <Property Name="StorageLocationName" Type="Edm.String" MaxLength="16" sap:label="Storage Loc. Name" sap:quickinfo="Storage Location Name"/>
+            </EntityType>
+            <Association Name="assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A" sap:content-version="1">
+                <End Type="ZC_MATERIALPK_CDS.ZC_MaterialPKType" Multiplicity="1" Role="FromRole_assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A"/>
+                <End Type="ZC_MATERIALPK_CDS.ZI_MaterialStockType" Multiplicity="*" Role="ToRole_assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A"/>
+            </Association>
+            <Association Name="assoc_DE2109AC35200725ABC49886C2698D6C" sap:content-version="1">
+                <End Type="ZC_MATERIALPK_CDS.ZC_MaterialPKType" Multiplicity="1" Role="FromRole_assoc_DE2109AC35200725ABC49886C2698D6C"/>
+                <End Type="ZC_MATERIALPK_CDS.ZI_MaterialPlantPKType" Multiplicity="*" Role="ToRole_assoc_DE2109AC35200725ABC49886C2698D6C"/>
+            </Association>
+            <EntityContainer Name="ZC_MATERIALPK_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_MaterialStdVH" EntityType="ZC_MATERIALPK_CDS.I_MaterialStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_MaterialPK" EntityType="ZC_MATERIALPK_CDS.ZC_MaterialPKType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_MaterialPlantPK" EntityType="ZC_MATERIALPK_CDS.ZI_MaterialPlantPKType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_MaterialStock" EntityType="ZC_MATERIALPK_CDS.ZI_MaterialStockType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_DE2109AC35200725ABC49886C2698D6C" Association="ZC_MATERIALPK_CDS.assoc_DE2109AC35200725ABC49886C2698D6C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_MaterialPK" Role="FromRole_assoc_DE2109AC35200725ABC49886C2698D6C"/>
+                    <End EntitySet="ZI_MaterialPlantPK" Role="ToRole_assoc_DE2109AC35200725ABC49886C2698D6C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A" Association="ZC_MATERIALPK_CDS.assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_MaterialPK" Role="FromRole_assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A"/>
+                    <End EntitySet="ZI_MaterialStock" Role="ToRole_assoc_0C5FA1BB5172E87E0E7DB4AA81FE008A"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZC_MATERIALPK_CDS.ZI_MaterialPlantPKType/Material" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Material"/>
+                        <PropertyValue Property="CollectionPath" String="I_MaterialStdVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Material"/>
+                                    <PropertyValue Property="ValueListProperty" String="Material"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Material_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_MATERIALPK_CDS.ZC_MATERIALPK_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_MATERIALPK_CDS.ZC_MATERIALPK_CDS_Entities/ZI_MaterialStock" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>UnrestrictedStock</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://sapgls4dev.idpbg.efoxconn.com:8000/sap/opu/odata/sap/ZC_MATERIALPK_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://sapgls4dev.idpbg.efoxconn.com:8000/sap/opu/odata/sap/ZC_MATERIALPK_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
