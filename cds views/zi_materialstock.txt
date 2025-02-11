@@ -1,0 +1,38 @@
+@AbapCatalog.sqlViewName: 'ZIMATSTK'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Material Stock'
+ 
+@UI.chart: [{
+    title: 'Stock by Plant and St Location',
+    description: 'Stock by Plant' ,
+    chartType: #COLUMN,
+    dimensions: ['Plant', 'StorageLocation'],
+    measures: ['UnrestrictedStock']
+}]
+ 
+define view ZI_MaterialStock
+  as select from I_MaterialUnrestrictedUseStock
+{
+  key Material,
+ 
+      @ObjectModel.text.element: ['PlantName']
+  key Plant,
+ 
+      @ObjectModel.text.element: ['StorageLocationName']
+  key StorageLocation,
+ 
+      @Semantics.unitOfMeasure: true
+  key MaterialBaseUnit,
+ 
+      @Semantics.quantity.unitOfMeasure: 'MaterialBaseUnit'
+      @DefaultAggregation: #SUM
+      MatlWrhsStkQtyInMatlBaseUnit as UnrestrictedStock,
+ 
+      @Semantics.text: true
+      _Plant.PlantName,
+ 
+      @Semantics.text: true
+      _StorageLocation.StorageLocationName
+}

@@ -1,0 +1,94 @@
+@AbapCatalog.sqlViewName: 'ZCMATPK'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Material Stock'
+ 
+@VDM.viewType: #CONSUMPTION
+ 
+@UI.headerInfo: { typeName: 'Material' ,
+                  typeNamePlural: 'Materials' ,
+                  title: { type: #STANDARD , value: 'Material'} ,
+                  description: { type: #STANDARD, value: 'MaterialName' } }
+ 
+@OData.publish: true
+ 
+define view ZC_MaterialPK
+  as select from ZI_MaterialPK
+  association [0..*] to ZI_MaterialStock as _MaterialStock 
+          on $projection.Material = _MaterialStock.Material
+{
+      @UI.facet: [
+         { id: 'idWeight' ,
+             purpose: #HEADER,
+             label: 'Weight' ,
+             type: #FIELDGROUP_REFERENCE,
+             targetQualifier: 'hdWeight'} ,
+         { id:'idGeneralInformation' ,
+               type: #COLLECTION ,
+               label: 'General Information' ,
+                position: 10 } ,
+             { type: #IDENTIFICATION_REFERENCE ,
+               label : 'General Information',
+               parentId: 'idGeneralInformation',
+               id: 'idIdentification' ,
+               position: 10 },
+             { type: #FIELDGROUP_REFERENCE ,
+               label : 'Last Changed',
+               targetQualifier: 'fgLastChanged' ,
+               parentId: 'idGeneralInformation' ,
+               id : 'idGroupLastChanged' ,
+               position: 20 },
+         { id: 'idLineItemMatPlant' ,
+               type : #LINEITEM_REFERENCE ,
+               label : 'Plant Data' ,
+               position: 20 ,
+               targetElement: '_MaterialPlant'} ,
+         { id : 'idChart' ,
+               type: #CHART_REFERENCE ,
+               label : 'Chart',
+               targetElement: '_MaterialStock',
+               position: 30 }
+                    ]
+      @UI.selectionField: [{ position: 10 }]
+      @UI.lineItem: [{ position: 10 }]
+      @UI.identification: [{ position: 10 }]
+      @ObjectModel.text.element: ['MaterialName']
+  key Material,
+ 
+      @UI.selectionField: [{ position: 20 }]
+      @UI.lineItem: [{ position: 20 }]
+      @UI.identification: [{ position: 20 }]
+      @ObjectModel.text.element: ['MaterialTypeName']
+      MaterialType,
+ 
+      @UI.selectionField: [{ position: 30 }]
+      @UI.lineItem: [{ position: 30 }]
+      @UI.identification: [{ position: 30 }]
+      @ObjectModel.text.element: ['MaterialGroupName']
+      MaterialGroup,
+ 
+      @UI.fieldGroup: [{ qualifier: 'hdWeight' , position: 10 }]
+      @Semantics.quantity.unitOfMeasure: 'MaterialWeightUnit'
+      MaterialGrossWeight,
+ 
+      @UI.fieldGroup: [{ qualifier: 'hdWeight' , position: 20 }]
+      @Semantics.quantity.unitOfMeasure: 'MaterialWeightUnit'
+      MaterialNetWeight,
+ 
+      @Semantics.unitOfMeasure: true
+      MaterialWeightUnit,
+ 
+      @UI.fieldGroup: [{ qualifier: 'fgLastChanged' , position: 10 }]
+      LastChangedby,
+ 
+      @UI.fieldGroup: [{ qualifier: 'fgLastChanged' , position: 20 }]
+      LastChangedOn,
+ 
+      MaterialTypeName,
+      MaterialGroupName,
+      MaterialName,
+ 
+      _MaterialPlant,
+      _MaterialStock
+}

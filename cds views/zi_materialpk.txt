@@ -1,0 +1,28 @@
+@AbapCatalog.sqlViewName: 'ZIMATPK'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Material'
+@VDM.viewType: #BASIC
+define view ZI_MaterialPK
+  as select from I_Material
+    inner join   mara on I_Material.Material = mara.matnr
+  association [0..*] to ZI_MaterialPlantPK as _MaterialPlant 
+           on $projection.Material = _MaterialPlant.Material
+{
+  key Material,
+      _Text[Language = $session.system_language].MaterialName,
+      MaterialType,
+      I_Material._MaterialType._Text[Language=$session.system_language].MaterialTypeName,
+      MaterialGroup,
+      I_Material._MaterialGroup._Text[Language=$session.system_language].MaterialGroupName,
+      @Semantics.quantity.unitOfMeasure: 'MaterialWeightUnit'
+      MaterialGrossWeight,
+      @Semantics.quantity.unitOfMeasure: 'MaterialWeightUnit'
+      MaterialNetWeight,
+      @Semantics.unitOfMeasure: true
+      MaterialWeightUnit,
+      mara.aenam as LastChangedby,
+      mara.laeda as LastChangedOn,
+      _MaterialPlant
+}

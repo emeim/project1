@@ -1,0 +1,29 @@
+@AbapCatalog.sqlViewName: 'ZIMATPLNTPK'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Material Plant'
+define view ZI_MaterialPlantPK
+  as select from I_MaterialPlant
+  association [1] to I_Plant    as _Plant    on $projection.Plant = _Plant.Plant
+  association [1] to I_Material as _Material on $projection.Material = _Material.Material
+{
+  key Material,
+      @UI.lineItem: [{ position: 10 }]
+      @ObjectModel.text.element: ['PlantName']
+  key Plant,
+      @Semantics.text: true
+      _Plant.PlantName,
+      @UI.lineItem: [{ position: 20 }]
+      @ObjectModel.text.element: ['MRPControllerName']
+      MRPController,
+       
+      @Semantics.text: true
+      I_MaterialPlant._MRPController.MRPControllerName ,
+      @UI.lineItem: [{ position: 30 }]
+      @Semantics.quantity.unitOfMeasure: 'MaterialBaseUnit'
+      MaterialSafetyStockQty,
+      @Semantics.unitOfMeasure: true
+      _Material.MaterialBaseUnit,
+      _Plant
+}
